@@ -7,9 +7,10 @@
 # 4. get the value of inverse of the matrix
 
 makeCacheMatrix <- function(x = matrix()) {
-  # inverse of the matrix
+  # this holds the inverse of the matrix
   mat_inv <- NULL
   
+  # <<- is "super assignment" operator which will assign the value at global environment
   set <- function(y) {
     x <<- y
     mat_inv <<- NULL
@@ -32,17 +33,21 @@ makeCacheMatrix <- function(x = matrix()) {
 }
 
 
-# The following function returns the inverse of the matrix. Assumption that the matrix supplied is always invertible.
+# The following function returns the inverse of the matrix. 
+# Assumption is made that the supplied matrix is always invertible.
+
 cacheSolve <- function(x, ...) {
   
-  ## Return a matrix that is the inverse of 'x'
+  ## Returns a matrix that is the inverse of 'x'
   inv <- x$getMatrixInverse()
   
+  # Return the Inverse if found in cache
   if(!is.null(inv)) {
     message("getting cached data.")
     return(inv)
   }
   
+  # otherwise calculate Inverse and put it in cache using setMatrixInverse method
   data <- x$get()
   
   inv <- solve(data)
@@ -50,7 +55,9 @@ cacheSolve <- function(x, ...) {
   inv
 }
 
-##Sample - Start 
+## Test Data - Start 
+
+#> source("cachematrix.R")
 #> x = rbind(c(1, 2), c(3, 4))
 #> m = makeCacheMatrix(x)
 #> m$get()
@@ -70,4 +77,4 @@ cacheSolve <- function(x, ...) {
 #[1,] -2.0  1.0
 #[2,]  1.5 -0.5
 
-##Sample - End 
+##Test Data - End 
